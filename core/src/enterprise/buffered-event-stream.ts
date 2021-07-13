@@ -9,7 +9,8 @@
 /**
  * Task log event control flow
  * 1. plugin handler emits log event on plugin event broker
- * 2. action listens to log events from plugin event broker, augments with more data and passes it along to garden.events
+ * 2. action listens to log events from plugin event broker,
+ *    augments with more data and passes it along to garden.events
  * 3. BufferedEventStream sends along to Garden Cloud
  *
  * Plugin handler control flow

@@ -22,7 +22,12 @@ import { getModuleWatchTasks } from "../tasks/helpers"
 import { processModules } from "../process"
 import { printHeader } from "../logger/util"
 import { BaseTask } from "../tasks/base"
-import { emitStackGraphEvent, getDevModeServiceNames, getHotReloadServiceNames, validateHotReloadServiceNames } from "./helpers"
+import {
+  emitStackGraphEvent,
+  getDevModeServiceNames,
+  getHotReloadServiceNames,
+  validateHotReloadServiceNames,
+} from "./helpers"
 import { startServer } from "../server/server"
 import { DeployTask } from "../tasks/deploy"
 import { naturalList } from "../util/string"

@@ -371,11 +371,12 @@ export class ActionRouter implements TypeGuard {
   }
 
   async build<T extends GardenModule>(params: ModuleActionRouterParams<BuildModuleParams<T>>): Promise<BuildResult> {
+    const actionUid = uuidv4()
     params.events = params.events || new PluginEventBroker()
-
     params.events.on("log", ({ timestamp, data }) => {
       this.garden.events.emit("log", {
         timestamp,
+        actionUid,
         entity: {
           type: "build",
           key: `${params.module.name}`,
@@ -387,7 +388,6 @@ export class ActionRouter implements TypeGuard {
     const startedAt = new Date()
     const moduleName = params.module.name
     const moduleVersion = params.module.version.versionString
-    const actionUid = uuidv4()
     this.garden.events.emit("buildStatus", {
       moduleName,
       moduleVersion,
@@ -460,6 +460,7 @@ export class ActionRouter implements TypeGuard {
       params.events.on("log", ({ timestamp, data }) => {
         this.garden.events.emit("log", {
           timestamp,
+          actionUid,
           entity: {
             type: "test",
             key: `${params.module.name}.${params.test.name}`,
@@ -681,6 +682,7 @@ export class ActionRouter implements TypeGuard {
       params.events.on("log", ({ timestamp, data }) => {
         this.garden.events.emit("log", {
           timestamp,
+          actionUid,
           entity: {
             type: "task",
             key: `${params.task.module.name}.${params.task.name}`,

@@ -153,6 +153,7 @@ export interface Events extends LoggerEvents {
   watchingForChanges: {}
   log: {
     timestamp: number
+    actionUid: string
     entity: {
       type: string
       key: string

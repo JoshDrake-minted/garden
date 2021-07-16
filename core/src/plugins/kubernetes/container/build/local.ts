@@ -7,7 +7,7 @@
  */
 
 import { containerHelpers } from "../../../container/helpers"
-import { buildContainerModule, getContainerBuildStatus } from "../../../container/build"
+import { getContainerBuildStatus } from "../../../container/build"
 import { KubernetesProvider, KubernetesPluginContext } from "../../config"
 import { loadImageToKind, getKindImageStatus } from "../../local/kind"
 import chalk = require("chalk")
@@ -50,10 +50,10 @@ export const getLocalBuildStatus: BuildStatusHandler = async (params) => {
 }
 
 export const localBuild: BuildHandler = async (params) => {
-  const { ctx, module, log } = params
+  const { ctx, module, log, base } = params
   const provider = ctx.provider as KubernetesProvider
   const containerProvider = provider.dependencies.container as ContainerProvider
-  const buildResult = await buildContainerModule({ ...params, ctx: { ...ctx, provider: containerProvider } })
+  const buildResult = await base!({ ...params, ctx: { ...ctx, provider: containerProvider } })
 
   if (!provider.config.deploymentRegistry) {
     if (provider.config.clusterType === "kind") {
